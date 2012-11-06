@@ -23,7 +23,7 @@
                 }
 
                 if (!is_file($file)) {
-                    throw new \Exception('No such class.');
+                    throw new \Exception('No such file (' . $file . ')');
                 }
 
                 return require_once $file;

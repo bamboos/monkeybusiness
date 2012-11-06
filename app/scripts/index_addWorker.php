@@ -1,16 +1,12 @@
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Status</th>
-        <th>Workers</th>
-    </tr>
-    <?php foreach($this->list as $item): ?>
-        <tr>
-            <td><?php echo $item->name; ?></td>
-            <td><?php echo $item->price; ?></td>
-            <td><?php echo $item->status; ?></td>
-            <td><a href="/index/workers/<?php echo $item->id; ?>">workers</a></td>
-        </tr>
-    <?php endforeach; ?>
-</table>
+<form method="post" action="">
+    Add worker for the house: <?php echo $this->house->name; ?>
+    <input type="hidden" name="form[house_id]" value="<?php echo $this->house->id; ?>">
+    <br/>
+    <select name="form[monkey_id]">
+        <?php foreach($this->workers as $worker): ?>
+        <option value="<?php echo $worker->id; ?>"><?php echo $worker->name,' (' . $worker->type . ')'; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <br/>
+    <input type="submit" value="Add">
+</form>

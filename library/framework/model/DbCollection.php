@@ -21,11 +21,11 @@
 			return $this->_connector;
 		}
 
-		private function getAll($criteria = '') {
+		private function getAll($criteria = null) {
 			$this->_array = $this->getConnector()->fetch($this->type, $criteria);
 		}
 
-        public function populate($criteria = '') {
+        public function populate($criteria = null) {
             $this->_index = 0;
             $this->getAll($criteria);
         }

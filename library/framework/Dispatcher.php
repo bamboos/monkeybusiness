@@ -33,6 +33,8 @@
             $instance = new $class($action);
 
             if (!empty($error)) {
+                $params['controller'] = 'error';
+                $params['action'] = 'index';
                 $instance->setErrorMessage($error);
             }
 

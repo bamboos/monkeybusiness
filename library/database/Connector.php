@@ -59,7 +59,19 @@
             return mysqli_query($this->_link, $sql);
 		}
 
-        public function fetch($table, $criteria = '') {
+        public function fetch($table, $criteria = null) {
+
+            if (is_array($criteria) && isset($criteria['relation'])) {
+                return mysqli_fetch_all($this->query("
+                    SELECT tbl.*
+                    FROM $table tbl
+                    INNER JOIN {$criteria['relation']['name']} relName ON relName.{$criteria['relation']['object']}_id = tbl.id
+                    AND {$criteria['relation']['subject']}_id = {$criteria['relation']['key']}
+                "), MYSQLI_ASSOC);
+            } elseif ($criteria['where']) {
+                return mysqli_fetch_all($this->query("SELECT * FROM $table WHERE {$criteria['where']}"), MYSQLI_ASSOC);
+            }
+
             return mysqli_fetch_all($this->query("SELECT * FROM $table"), MYSQLI_ASSOC);
         }
 	}

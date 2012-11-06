@@ -4,7 +4,7 @@
 
     class DbModel implements IModel {
 		private $_connector = null;
-        protected $_type = 'house';
+        protected $_type = null;
         private $_fields = null;
 
 		public function __construct($defaults = array()) {
@@ -27,6 +27,15 @@
 		public function delete() {
 
 		}
+
+        public function load($id) {
+            if ($id) {
+                $array = $this->_connector->fetch($this->_type . 's', array('where' => "id='{$id}'"));
+                if (!empty($array)) {
+                    $this->fromArray($array[0]);
+                }
+            }
+        }
 
         public function fromArray($data) {
             $this->_fields = array_keys($data);
